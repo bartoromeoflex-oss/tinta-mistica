@@ -6,34 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tinta Mística - Biblioteca Segura</title>
     <style>
-        /* ESTILO ORIGINAL DE FERMÍN - NO TOCAR */
         body { background-color: #f4ecd8; font-family: 'Georgia', serif; color: #2c1e11; text-align: center; padding: 10px; margin: 0; }
         h1 { color: #8b5a2b; font-size: 30px; margin: 10px 0; font-weight: bold; }
         .reproductor { background-color: #e6dac1; border: 2px solid #8b5a2b; border-radius: 8px; max-width: 500px; margin: 0 auto 15px auto; padding: 10px; }
         .pantalla-completa { display: flex; justify-content: center; align-items: flex-start; gap: 15px; max-width: 1200px; margin: 0 auto; }
-       
         .contenedor-principal { display: flex; flex: 2; gap: 15px; justify-content: center; align-items: flex-start; max-width: 800px; }
         .estanteria-madera { background-color: #dfcfb3; border: 5px solid #8b5a2b; border-radius: 5px; flex: 1; max-width: 100px; padding: 10px; height: 420px; overflow-y: scroll; }
         .repisa { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 5px; }
-
-        /* BOTONES AZULES CON MOVIMIENTO - INTACTOS */
         .librito { background: linear-gradient(45deg, #3a539b, #22316c); border-left: 4px solid #8b5a2b; height: 35px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; color: #ffffff; cursor: pointer; border-radius: 3px 5px 5px 3px; transition: 0.3s; box-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
         .librito:hover { transform: scale(1.05); }
-
-        .lector-libros { background-color: #ffffff; color: #2c1e11; flex: 3; max-width: 600px; height: 420px; border: 6px solid #8b5a2b; border-radius: 5px; padding: 20px; text-align: left; overflow-y: scroll; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .lector-libros { background-color: #ffffff; color: #2c1e11; flex: 3; max-width: 600px; height: 420px; border: 6px solid #8b5a2b; border-radius: 5px; padding: 20px; text-align: left; overflow-y: scroll; }
         .lector-libros h2 { color: #8b5a2b; margin-top: 0; font-size: 20px; text-align: center; border-bottom: 2px solid #e6dac1; padding-bottom: 5px; }
-
-        /* NUEVAS SECCIONES FUNCIONALES */
-        #visorImagen { width: 100%; max-height: 250px; display: none; margin: 10px 0; border: 1px solid #e6dac1; object-fit: contain; }
-        .espacio-lateral { width: 150px; display: flex; flex-direction: column; gap: 10px; }
-        .img-decorativa { width: 100%; border: 1px solid #8b5a2b; border-radius: 5px; }
-       
-        .boton-opciones { background-color: #e6dac1; color: #2c1e11; border: 1px solid #8b5a2b; padding: 8px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 13px; margin-top: 10px; }
-        #cuadroEspera { display: none; background-color: #e6dac1; padding: 15px; border: 1px solid #8b5a2b; border-radius: 5px; text-align: center; margin-top: 15px; }
-        .barra-progreso { width: 100%; background-color: #ffffff; border: 1px solid #8b5a2b; border-radius: 10px; height: 15px; margin-top: 10px; overflow: hidden; }
-        .relleno-barra { height: 100%; width: 0%; background-color: #8b5a2b; transition: width 0.1s linear; }
-        #cuadroRegresaManana { display: none; background-color: #fff3cd; color: #856404; padding: 15px; border: 2px solid #ffeeba; border-radius: 5px; text-align: center; margin-top: 15px; font-size: 14px; font-weight: bold; }
-        .aviso-legal { max-width: 800px; margin: 25px auto 10px auto; font-size: 11px; color: #7c7267; text-align: center; line-height: 1.4; }
+        #visorImagen { width: 100%; max-height: 250px; display: none; margin: 10px 0; border: 1px solid #8b5a2b; }
     </style>
 </head>
 <body>
@@ -47,7 +31,7 @@
         </audio>
         <div style="font-size: 20px; cursor: pointer;">
             <span onclick="document.getElementById('musicaR').currentTime -= 10">⏮</span>
-            <span id="btnPlay" onclick="controlAudio()">▶</span>
+            <span id="btnPlay" onclick="controlMusica()">▶</span>
             <span onclick="document.getElementById('musicaR').currentTime += 10">⏭</span>
             <span>🔊</span>
         </div>
@@ -55,7 +39,10 @@
 
     <div class="pantalla-completa">
         <div style="width: 150px;">
-            <script src="https://www.highperformanceformat.com/bb4e1393787ff243130bdbd1c62d2002/invoke.js"></script>
+            <script type="text/javascript">
+                atOptions = { 'key' : 'a4cbc3e4e2982f09c96c5bdf29bdc7c7', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/a4cbc3e4e2982f09c96c5bdf29bdc7c7/invoke.js"></script>
         </div>
 
         <div class="contenedor-principal">
@@ -64,105 +51,69 @@
                 <div class="repisa" id="listaNumeros"></div>
             </div>
 
-            <div class="lector-libros" id="cajaLector">
-                <div>
-                    <h2 id="tituloLibro">Bienvenido</h2>
-                    <div id="contenidoLibro" style="font-size:14px;">
-                        Selecciona un número para revelar el contenido de la biblioteca de Barto romeo.
+            <div class="lector-libros">
+                <h2 id="tituloLibro">Bienvenido</h2>
+                <div id="contenidoLibro" style="font-size:14px;">Selecciona un tomo de la biblioteca de Barto romeo.</div>
+                <center><img id="visorImagen" src=""></center>
+                <div id="opcionesTomo" style="display:none; margin-top:20px;">
+                    <button style="width:100%; padding:12px; background:#ffc107; font-weight:bold; border:1px solid #8b5a2b; cursor:pointer; border-radius:5px;" onclick="iniciarCarga()">🔐 SOLICITAR LIBRO COMPLETO</button>
+                    <div id="statusDescarga" style="display:none; margin-top:10px; font-size:12px; text-align:center;">
+                        Enviando solicitud al administrador...
+                        <div style="width:100%; background:#eee; height:10px; border-radius:5px; margin-top:5px; border:1px solid #8b5a2b;">
+                            <div id="barra" style="width:0%; background:#8b5a2b; height:100%;"></div>
+                        </div>
                     </div>
-                    <img id="visorImagen" src="" alt="Cargando tomo...">
-                </div>
-               
-                <div id="opcionesTomo" style="display:none;">
-                    <button class="boton-opciones" onclick="mostrarCarga()">🔐 SOLICITAR PERMISO: Descarga de archivo ZIP</button>
-                </div>
-
-                <div id="cuadroEspera">
-                    <span id="textoCarga" style="font-size: 14px;">Verificando credenciales de Barto romeo...</span>
-                    <div class="barra-progreso">
-                        <div class="relleno-barra" id="progreso"></div>
-                    </div>
-                </div>
-
-                <div id="cuadroRegresaManana">
-                    📝 SOLICITUD RECIBIDA.<br><br>
-                    Acceso validado. Tu enlace de descarga personalizado estará listo <strong>mañana en la noche</strong>. Por seguridad, regresa a esta misma página.
                 </div>
             </div>
         </div>
 
-        <div class="espacio-lateral">
-            <img src="dragon.jpg" class="img-decorativa" alt="Guardián">
-            <img src="pergamino.jpg" class="img-decorativa" alt="Registro">
+        <div style="width: 160px;">
+            <script type="text/javascript">
+                atOptions = { 'key' : 'bb4e1393787ff243130bdbd1c62d2002', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
+            </script>
+            <script type="text/javascript" src="//www.highperformanceformat.com/bb4e1393787ff243130bdbd1c62d2002/invoke.js"></script>
         </div>
     </div>
 
-    <div class="aviso-legal">
-        <hr style="border-color: #dfcfb3; margin-bottom: 10px;">
-        RENUNCIA DE RESPONSABILIDAD: Esta biblioteca digital se presenta estrictamente con fines de entretenimiento y estudio. El administrador NO promueve y NO se hace responsable de las interpretaciones o acciones derivadas. Uso bajo propia cuenta y riesgo.
-    </div>
-
-<script>
-    // VINCULACIÓN A BARTOROMEOFLEX@GMAIL.COM
-    const imagenesDrive = {
-        "1": "ID_IMAGEN_1",
-        "2": "ID_IMAGEN_2",
-        // ... poner aquí los IDs de Bartolomeo
-    };
-
-    const lista = document.getElementById('listaNumeros');
-    for (let i = 1; i <= 40; i++) {
-        let div = document.createElement('div');
-        div.className = 'librito';
-        div.innerText = i;
-        div.onclick = function() { cargarTomo(i); };
-        lista.appendChild(div);
-    }
-
-    function controlAudio() {
-        const a = document.getElementById('musicaR');
-        const b = document.getElementById('btnPlay');
-        if (a.paused) { a.play(); b.innerText = "⏸"; } else { a.pause(); b.innerText = "▶"; }
-    }
-
-    function cargarTomo(num) {
-        document.getElementById('tituloLibro').innerHTML = 'TOMO NÚMERO ' + num;
-        const visor = document.getElementById('visorImagen');
-       
-        if(imagenesDrive[num]) {
-            visor.src = "https://drive.google.com/uc?export=view&id=" + imagenesDrive[num];
-            visor.style.display = 'block';
-            document.getElementById('contenidoLibro').innerHTML = 'Cargando material exclusivo...';
-        } else {
-            visor.style.display = 'none';
-            document.getElementById('contenidoLibro').innerHTML = 'Contenido listo para vincular en el Drive de Barto.';
+    <script>
+        // MÚSICA
+        const audio = document.getElementById('musicaR');
+        const btn = document.getElementById('btnPlay');
+        function controlMusica() {
+            if (audio.paused) { audio.play(); btn.innerText = "⏸"; }
+            else { audio.pause(); btn.innerText = "▶"; }
         }
-       
-        document.getElementById('opcionesTomo').style.display = 'block';
-        document.getElementById('cuadroEspera').style.display = 'none';
-        document.getElementById('cuadroRegresaManana').style.display = 'none';
-    }
 
-    function mostrarCarga() {
-        document.getElementById('opcionesTomo').style.display = 'none';
-        document.getElementById('cuadroEspera').style.display = 'block';
-        let p = document.getElementById('progreso');
-        let t = document.getElementById('textoCarga');
-        let w = 0;
-        let int = setInterval(() => {
-            if (w >= 100) {
-                clearInterval(int);
-                document.getElementById('cuadroEspera').style.display = 'none';
-                document.getElementById('cuadroRegresaManana').style.display = 'block';
-            } else {
-                w++;
-                p.style.width = w + '%';
-                if(w == 30) t.innerHTML = "Dándole permisos al personal autorizado...";
-                if(w == 70) t.innerHTML = "Verificando integridad del ZIP...";
-            }
-        }, 60);
-    }
-</script>
+        // VINCULACIÓN BARTOROMEO
+        const imagenesDrive = { "1": "ID_AQUÍ", "2": "ID_AQUÍ" };
+        const lista = document.getElementById('listaNumeros');
+        for (let i = 1; i <= 40; i++) {
+            let div = document.createElement('div');
+            div.className = 'librito';
+            div.innerText = i;
+            div.onclick = function() {
+                document.getElementById('tituloLibro').innerText = 'TOMO ' + i;
+                document.getElementById('contenidoLibro').innerText = 'Analizando contenido exclusivo...';
+                document.getElementById('opcionesTomo').style.display = 'block';
+                document.getElementById('statusDescarga').style.display = 'none';
+                if(imagenesDrive[i]){
+                    document.getElementById('visorImagen').src = "https://drive.google.com/uc?export=view&id=" + imagenesDrive[i];
+                    document.getElementById('visorImagen').style.display = 'block';
+                }
+            };
+            lista.appendChild(div);
+        }
+
+        function iniciarCarga() {
+            document.getElementById('statusDescarga').style.display = 'block';
+            let b = document.getElementById('barra');
+            let w = 0;
+            let iv = setInterval(() => {
+                if(w>=100){ clearInterval(iv); alert('Solicitud recibida. Tu enlace estará listo MAÑANA EN LA NOCHE.'); }
+                else { w++; b.style.width = w + '%'; }
+            }, 50);
+        }
+    </script>
 </body>
 </html>
 
