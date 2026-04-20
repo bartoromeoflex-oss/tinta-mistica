@@ -1,23 +1,45 @@
 
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinta Mística - Biblioteca Segura</title>
+    <title>Tinta Mística - Biblioteca Oficial</title>
     <style>
+        /* ESTILO ORIGINAL REFORZADO */
         body { background-color: #f4ecd8; font-family: 'Georgia', serif; color: #2c1e11; text-align: center; padding: 10px; margin: 0; }
-        h1 { color: #8b5a2b; font-size: 30px; margin: 10px 0; font-weight: bold; }
-        .reproductor { background-color: #e6dac1; border: 2px solid #8b5a2b; border-radius: 8px; max-width: 500px; margin: 0 auto 15px auto; padding: 10px; }
-        .pantalla-completa { display: flex; justify-content: center; align-items: flex-start; gap: 15px; max-width: 1200px; margin: 0 auto; }
-        .contenedor-principal { display: flex; flex: 2; gap: 15px; justify-content: center; align-items: flex-start; max-width: 800px; }
-        .estanteria-madera { background-color: #dfcfb3; border: 5px solid #8b5a2b; border-radius: 5px; flex: 1; max-width: 100px; padding: 10px; height: 420px; overflow-y: scroll; }
-        .repisa { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 5px; }
-        .librito { background: linear-gradient(45deg, #3a539b, #22316c); border-left: 4px solid #8b5a2b; height: 35px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; color: #ffffff; cursor: pointer; border-radius: 3px 5px 5px 3px; transition: 0.3s; box-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
-        .librito:hover { transform: scale(1.05); }
-        .lector-libros { background-color: #ffffff; color: #2c1e11; flex: 3; max-width: 600px; height: 420px; border: 6px solid #8b5a2b; border-radius: 5px; padding: 20px; text-align: left; overflow-y: scroll; }
-        .lector-libros h2 { color: #8b5a2b; margin-top: 0; font-size: 20px; text-align: center; border-bottom: 2px solid #e6dac1; padding-bottom: 5px; }
-        #visorImagen { width: 100%; max-height: 250px; display: none; margin: 10px 0; border: 1px solid #8b5a2b; }
+        h1 { color: #8b5a2b; font-size: 32px; margin: 15px 0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+       
+        .reproductor { background-color: #e6dac1; border: 2px solid #8b5a2b; border-radius: 10px; max-width: 500px; margin: 0 auto 20px auto; padding: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+       
+        .pantalla-completa { display: flex; justify-content: center; align-items: flex-start; gap: 20px; max-width: 1300px; margin: 0 auto; padding: 0 10px; }
+       
+        /* COLUMNA ANUNCIOS IZQUIERDA */
+        .columna-ads { width: 160px; min-width: 160px; }
+
+        .contenedor-principal { display: flex; flex: 2; gap: 15px; justify-content: center; align-items: flex-start; max-width: 850px; }
+       
+        .estanteria-madera { background-color: #dfcfb3; border: 5px solid #8b5a2b; border-radius: 8px; flex: 1; max-width: 110px; padding: 10px; height: 480px; overflow-y: scroll; box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        .repisa { display: grid; grid-template-columns: 1fr; gap: 12px; }
+       
+        .librito { background: linear-gradient(45deg, #3a539b, #22316c); border-left: 5px solid #8b5a2b; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px; color: #ffffff; cursor: pointer; border-radius: 4px; transition: 0.3s; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
+        .librito:hover { transform: scale(1.1); background: linear-gradient(45deg, #4a69bd, #22316c); }
+
+        .lector-libros { background-color: #ffffff; color: #2c1e11; flex: 3; max-width: 650px; min-height: 480px; border: 6px solid #8b5a2b; border-radius: 8px; padding: 25px; text-align: left; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+       
+        #visorImagen { width: 100%; max-height: 300px; display: none; margin-top: 15px; border: 2px solid #e6dac1; border-radius: 4px; }
+
+        /* LADO DERECHO: DRAGÓN */
+        .columna-derecha { width: 180px; min-width: 180px; text-align: center; }
+        .img-dragon { width: 100%; border-radius: 12px; border: 3px solid #8b5a2b; margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+
+        /* CUADRO DE DESCARGAS */
+        #cuadroDescarga { display: none; background: #fdfaf3; border: 2px solid #8b5a2b; padding: 20px; margin-top: 25px; border-radius: 12px; text-align: center; }
+        .barra-contenedor { width: 100%; background: #eee; border: 1px solid #8b5a2b; height: 24px; border-radius: 12px; margin: 15px 0; overflow: hidden; }
+        .barra-progreso { width: 0%; height: 100%; background: linear-gradient(90deg, #8b5a2b, #b38b59); transition: width 0.1s; }
+
+        .leyenda-inferior { margin: 40px auto 20px auto; font-size: 13px; color: #666; max-width: 800px; padding: 15px; border-top: 2px double #8b5a2b; line-height: 1.5; }
     </style>
 </head>
 <body>
@@ -25,93 +47,114 @@
     <h1>Tinta Mística</h1>
    
     <div class="reproductor">
-        <p style="color: #8b5a2b; font-weight: bold; margin: 0 0 5px 0; font-size: 15px;">🎶 MELODÍAS RELAJANTES</p>
+        <p style="color: #8b5a2b; font-weight: bold; margin: 0 0 8px 0; letter-spacing: 1px;">🎶 MELODÍAS RELAJANTES</p>
         <audio id="musicaR" loop>
             <source src="audio_relajacion.mp3" type="audio/mpeg">
         </audio>
-        <div style="font-size: 20px; cursor: pointer;">
-            <span onclick="document.getElementById('musicaR').currentTime -= 10">⏮</span>
-            <span id="btnPlay" onclick="controlMusica()">▶</span>
-            <span onclick="document.getElementById('musicaR').currentTime += 10">⏭</span>
-            <span>🔊</span>
+        <div style="font-size: 28px; user-select: none;">
+            <span style="cursor:pointer;" onclick="document.getElementById('musicaR').currentTime -= 10">⏪</span>
+            <span id="btnPlay" style="cursor:pointer; margin: 0 25px;" onclick="tocarMusica()">▶️</span>
+            <span style="cursor:pointer;" onclick="document.getElementById('musicaR').currentTime += 10">⏩</span>
         </div>
     </div>
 
     <div class="pantalla-completa">
-        <div style="width: 150px;">
+        <div class="columna-ads">
             <script type="text/javascript">
-                atOptions = { 'key' : 'a4cbc3e4e2982f09c96c5bdf29bdc7c7', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : {} };
+                atOptions = { 'key' : 'a4cbc3e4e2982f09c96c5bdf29bdc7c7', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
             </script>
             <script type="text/javascript" src="//www.highperformanceformat.com/a4cbc3e4e2982f09c96c5bdf29bdc7c7/invoke.js"></script>
         </div>
 
         <div class="contenedor-principal">
             <div class="estanteria-madera">
-                <h3 style="color: #8b5a2b; margin-top: 0; text-align: center; font-size: 13px;">TOMOS</h3>
-                <div class="repisa" id="listaNumeros"></div>
+                <div class="repisa" id="listaBotones"></div>
             </div>
 
             <div class="lector-libros">
-                <h2 id="tituloLibro">Bienvenido</h2>
-                <div id="contenidoLibro" style="font-size:14px;">Selecciona un tomo de la biblioteca de Barto romeo.</div>
+                <h2 id="tituloTomo" style="text-align:center; color:#8b5a2b; border-bottom: 2px solid #f4ecd8; padding-bottom:10px;">Bienvenido</h2>
+                <div id="textoLector" style="font-size:15px; line-height:1.6;">Selecciona un número de la biblioteca para revelar los secretos guardados por Barto romeo.</div>
                 <center><img id="visorImagen" src=""></center>
-                <div id="opcionesTomo" style="display:none; margin-top:20px;">
-                    <button style="width:100%; padding:12px; background:#ffc107; font-weight:bold; border:1px solid #8b5a2b; cursor:pointer; border-radius:5px;" onclick="iniciarCarga()">🔐 SOLICITAR LIBRO COMPLETO</button>
-                    <div id="statusDescarga" style="display:none; margin-top:10px; font-size:12px; text-align:center;">
-                        Enviando solicitud al administrador...
-                        <div style="width:100%; background:#eee; height:10px; border-radius:5px; margin-top:5px; border:1px solid #8b5a2b;">
-                            <div id="barra" style="width:0%; background:#8b5a2b; height:100%;"></div>
-                        </div>
+               
+                <div id="cuadroDescarga">
+                    <button id="btnSolicitar" onclick="iniciarDescarga()" style="background:#8b5a2b; color:#fff; border:none; padding:12px 25px; cursor:pointer; font-weight:bold; border-radius:6px; font-size:14px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">🔐 SOLICITAR ARCHIVO ZIP</button>
+                    <div id="procesoCarga" style="display:none;">
+                        <p id="msgCarga" style="font-size:14px; font-weight:bold; color:#8b5a2b;">Iniciando conexión segura...</p>
+                        <div class="barra-contenedor"><div class="barra-progreso" id="miBarra"></div></div>
                     </div>
+                    <p id="avisoFinal" style="display:none; color:#a00; font-weight:bold; font-size:15px; background:#fff3f3; padding:10px; border-radius:5px; border:1px solid #ffcccc;">✅ SOLICITUD ENVIADA.<br>Tu enlace personalizado estará listo MAÑANA EN LA NOCHE.</p>
                 </div>
             </div>
         </div>
 
-        <div style="width: 160px;">
-            <script type="text/javascript">
-                atOptions = { 'key' : 'bb4e1393787ff243130bdbd1c62d2002', 'format' : 'iframe', 'height' : 600, 'width' : 160, 'params' : {} };
-            </script>
-            <script type="text/javascript" src="//www.highperformanceformat.com/bb4e1393787ff243130bdbd1c62d2002/invoke.js"></script>
-        </div>
+        <div class="columna-derecha">
+            <img src="dragon.jpg" alt="Dragón Guardián" class="img-dragon">
+            <p style="font-size:13px; font-weight:bold; color:#8b5a2b; text-transform:uppercase;">Guardián Místico</p>
+            </div>
+    </div>
+
+    <div class="leyenda-inferior">
+        <strong>AVISO DE PRIVACIDAD Y SEGURIDAD:</strong> Este portal está vinculado exclusivamente a la cuenta oficial <em>bartoromeoflex@gmail.com</em>. Todo el material descargable es procesado bajo validación manual. <br>
+        <span style="font-size:11px;">Tinta Mística © 2026 - El uso indebido de este material es responsabilidad del usuario final.</span>
     </div>
 
     <script>
-        // MÚSICA
-        const audio = document.getElementById('musicaR');
-        const btn = document.getElementById('btnPlay');
-        function controlMusica() {
-            if (audio.paused) { audio.play(); btn.innerText = "⏸"; }
-            else { audio.pause(); btn.innerText = "▶"; }
+        // LÓGICA DE MÚSICA
+        const m = document.getElementById('musicaR');
+        const bPlay = document.getElementById('btnPlay');
+        function tocarMusica() {
+            if (m.paused) { m.play(); bPlay.innerText = "⏸️"; }
+            else { m.pause(); bPlay.innerText = "▶️"; }
         }
 
-        // VINCULACIÓN BARTOROMEO
-        const imagenesDrive = { "1": "ID_AQUÍ", "2": "ID_AQUÍ" };
-        const lista = document.getElementById('listaNumeros');
+        // GENERAR 40 BOTONES
+        const idsDrive = { "1": "PON_AQUI_ID_1", "2": "PON_AQUI_ID_2" }; // Aquí pegas tus códigos de Drive
+        const listaContenedor = document.getElementById('listaBotones');
+       
         for (let i = 1; i <= 40; i++) {
-            let div = document.createElement('div');
-            div.className = 'librito';
-            div.innerText = i;
-            div.onclick = function() {
-                document.getElementById('tituloLibro').innerText = 'TOMO ' + i;
-                document.getElementById('contenidoLibro').innerText = 'Analizando contenido exclusivo...';
-                document.getElementById('opcionesTomo').style.display = 'block';
-                document.getElementById('statusDescarga').style.display = 'none';
-                if(imagenesDrive[i]){
-                    document.getElementById('visorImagen').src = "https://drive.google.com/uc?export=view&id=" + imagenesDrive[i];
-                    document.getElementById('visorImagen').style.display = 'block';
+            let boton = document.createElement('div');
+            boton.className = 'librito';
+            boton.innerText = i;
+            boton.onclick = function() {
+                document.getElementById('tituloTomo').innerText = "TOMO " + i;
+                document.getElementById('textoLector').innerText = "Accediendo a los archivos de la biblioteca... Por favor, solicita el acceso completo si deseas el material original.";
+                document.getElementById('cuadroDescarga').style.display = "block";
+                document.getElementById('avisoFinal').style.display = "none";
+                document.getElementById('btnSolicitar').style.display = "inline-block";
+                document.getElementById('procesoCarga').style.display = "none";
+               
+                const imgVisor = document.getElementById('visorImagen');
+                if(idsDrive[i]) {
+                    imgVisor.src = "https://drive.google.com/uc?export=view&id=" + idsDrive[i];
+                    imgVisor.style.display = "block";
+                } else {
+                    imgVisor.style.display = "none";
                 }
             };
-            lista.appendChild(div);
+            listaContenedor.appendChild(boton);
         }
 
-        function iniciarCarga() {
-            document.getElementById('statusDescarga').style.display = 'block';
-            let b = document.getElementById('barra');
-            let w = 0;
-            let iv = setInterval(() => {
-                if(w>=100){ clearInterval(iv); alert('Solicitud recibida. Tu enlace estará listo MAÑANA EN LA NOCHE.'); }
-                else { w++; b.style.width = w + '%'; }
-            }, 50);
+        // LÓGICA DE BARRA DE CARGA
+        function iniciarDescarga() {
+            document.getElementById('btnSolicitar').style.display = "none";
+            document.getElementById('procesoCarga').style.display = "block";
+            let miBarra = document.getElementById('miBarra');
+            let msj = document.getElementById('msgCarga');
+            let progreso = 0;
+           
+            let intervalo = setInterval(() => {
+                if (progreso >= 100) {
+                    clearInterval(intervalo);
+                    document.getElementById('procesoCarga').style.display = "none";
+                    document.getElementById('avisoFinal').style.display = "block";
+                } else {
+                    progreso++;
+                    miBarra.style.width = progreso + '%';
+                    if(progreso == 25) msj.innerText = "Verificando cuenta Barto romeo...";
+                    if(progreso == 50) msj.innerText = "Validando permisos con el servidor...";
+                    if(progreso == 75) msj.innerText = "Preparando paquete de datos ZIP...";
+                }
+            }, 80); // Velocidad de la barra
         }
     </script>
 </body>
