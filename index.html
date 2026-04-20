@@ -7,55 +7,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tinta Mística - Biblioteca Oficial</title>
     <style>
-        /* ESTILO ORIGINAL REFORZADO */
         body { background-color: #f4ecd8; font-family: 'Georgia', serif; color: #2c1e11; text-align: center; padding: 10px; margin: 0; }
-        h1 { color: #8b5a2b; font-size: 32px; margin: 15px 0; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
+        h1 { color: #8b5a2b; font-size: 32px; margin: 10px 0; font-weight: bold; }
        
-        .reproductor { background-color: #e6dac1; border: 2px solid #8b5a2b; border-radius: 10px; max-width: 500px; margin: 0 auto 20px auto; padding: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .instrucciones { background: #fff; border: 1px dashed #8b5a2b; max-width: 750px; margin: 0 auto 15px auto; padding: 15px; font-size: 14px; border-radius: 8px; color: #5d4037; line-height: 1.4; }
+
+        .reproductor { background-color: #e6dac1; border: 2px solid #8b5a2b; border-radius: 10px; max-width: 400px; margin: 0 auto 20px auto; padding: 10px; }
        
-        .pantalla-completa { display: flex; justify-content: center; align-items: flex-start; gap: 20px; max-width: 1300px; margin: 0 auto; padding: 0 10px; }
-       
-        /* COLUMNA ANUNCIOS IZQUIERDA */
-        .columna-ads { width: 160px; min-width: 160px; }
+        /* BUSCADOR */
+        .buscador-area { margin-bottom: 25px; }
+        .input-busqueda { padding: 12px; width: 280px; border: 2px solid #8b5a2b; border-radius: 5px 0 0 5px; outline: none; font-size: 16px; }
+        .btn-busqueda { padding: 12px 20px; background: #8b5a2b; color: white; border: none; border-radius: 0 5px 5px 0; cursor: pointer; font-weight: bold; font-size: 16px; }
+
+        .pantalla-completa { display: flex; justify-content: center; align-items: flex-start; gap: 20px; max-width: 1300px; margin: 0 auto; }
+        .columna-ads { width: 160px; }
 
         .contenedor-principal { display: flex; flex: 2; gap: 15px; justify-content: center; align-items: flex-start; max-width: 850px; }
-       
-        .estanteria-madera { background-color: #dfcfb3; border: 5px solid #8b5a2b; border-radius: 8px; flex: 1; max-width: 110px; padding: 10px; height: 480px; overflow-y: scroll; box-shadow: inset 0 0 10px rgba(0,0,0,0.2); }
+        .estanteria-madera { background-color: #dfcfb3; border: 5px solid #8b5a2b; border-radius: 8px; width: 100px; padding: 10px; height: 500px; overflow-y: scroll; }
         .repisa { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .librito { background: linear-gradient(45deg, #3a539b, #22316c); border-left: 5px solid #8b5a2b; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px; color: #ffffff; cursor: pointer; border-radius: 4px; }
+
+        .lector-libros { background-color: #ffffff; flex: 3; max-width: 600px; min-height: 500px; border: 6px solid #8b5a2b; border-radius: 8px; padding: 25px; text-align: left; }
        
-        .librito { background: linear-gradient(45deg, #3a539b, #22316c); border-left: 5px solid #8b5a2b; height: 40px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 15px; color: #ffffff; cursor: pointer; border-radius: 4px; transition: 0.3s; box-shadow: 2px 2px 5px rgba(0,0,0,0.3); }
-        .librito:hover { transform: scale(1.1); background: linear-gradient(45deg, #4a69bd, #22316c); }
+        /* ÁREA DE RESULTADO DE DESCARGA */
+        #resultadoDescarga { display: none; background: #e6dac1; border: 3px solid #8b5a2b; padding: 20px; margin-top: 20px; border-radius: 12px; text-align: center; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        .lector-libros { background-color: #ffffff; color: #2c1e11; flex: 3; max-width: 650px; min-height: 480px; border: 6px solid #8b5a2b; border-radius: 8px; padding: 25px; text-align: left; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-       
-        #visorImagen { width: 100%; max-height: 300px; display: none; margin-top: 15px; border: 2px solid #e6dac1; border-radius: 4px; }
+        .barra-contenedor { width: 100%; background: #fff; border: 1px solid #8b5a2b; height: 20px; border-radius: 10px; margin-top: 15px; overflow: hidden; display: none; }
+        .barra-progreso { width: 0%; height: 100%; background: #8b5a2b; }
 
-        /* LADO DERECHO: DRAGÓN */
-        .columna-derecha { width: 180px; min-width: 180px; text-align: center; }
-        .img-dragon { width: 100%; border-radius: 12px; border: 3px solid #8b5a2b; margin-bottom: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+        .columna-derecha { width: 180px; text-align: center; }
+        .img-dragon { width: 100%; border: 3px solid #8b5a2b; border-radius: 12px; }
 
-        /* CUADRO DE DESCARGAS */
-        #cuadroDescarga { display: none; background: #fdfaf3; border: 2px solid #8b5a2b; padding: 20px; margin-top: 25px; border-radius: 12px; text-align: center; }
-        .barra-contenedor { width: 100%; background: #eee; border: 1px solid #8b5a2b; height: 24px; border-radius: 12px; margin: 15px 0; overflow: hidden; }
-        .barra-progreso { width: 0%; height: 100%; background: linear-gradient(90deg, #8b5a2b, #b38b59); transition: width 0.1s; }
-
-        .leyenda-inferior { margin: 40px auto 20px auto; font-size: 13px; color: #666; max-width: 800px; padding: 15px; border-top: 2px double #8b5a2b; line-height: 1.5; }
+        .pie { margin-top: 50px; font-weight: bold; color: #8b5a2b; border-top: 2px solid #8b5a2b; padding: 20px; font-size: 18px; }
     </style>
 </head>
 <body>
 
     <h1>Tinta Mística</h1>
+
+    <div class="instrucciones">
+        <strong>BIENVENIDOS A TINTA MÍSTICA</strong><br>
+        1. Selecciona un número del estante azul.<br>
+        2. <strong>Copia</strong> el nombre del cuento que aparecerá abajo.<br>
+        3. <strong>Pégalo</strong> en el buscador de arriba y dale clic a la lupa 🔍.<br>
+        4. Aparecerá tu link de <strong>Descarga 100% Calidad</strong>.
+    </div>
    
     <div class="reproductor">
-        <p style="color: #8b5a2b; font-weight: bold; margin: 0 0 8px 0; letter-spacing: 1px;">🎶 MELODÍAS RELAJANTES</p>
-        <audio id="musicaR" loop>
-            <source src="audio_relajacion.mp3" type="audio/mpeg">
-        </audio>
-        <div style="font-size: 28px; user-select: none;">
-            <span style="cursor:pointer;" onclick="document.getElementById('musicaR').currentTime -= 10">⏪</span>
-            <span id="btnPlay" style="cursor:pointer; margin: 0 25px;" onclick="tocarMusica()">▶️</span>
-            <span style="cursor:pointer;" onclick="document.getElementById('musicaR').currentTime += 10">⏩</span>
-        </div>
+        <audio id="musicaR" loop><source src="audio_relajacion.mp3" type="audio/mpeg"></audio>
+        <button onclick="document.getElementById('musicaR').play()" style="cursor:pointer; font-weight:bold;">▶️ ESCUCHAR</button>
+        <button onclick="document.getElementById('musicaR').pause()" style="cursor:pointer; margin-left:15px; font-weight:bold;">⏸️ PAUSAR</button>
+    </div>
+
+    <div class="buscador-area">
+        <input type="text" id="inputBuscar" class="input-busqueda" placeholder="Pega el nombre aquí...">
+        <button class="btn-busqueda" onclick="validarBusqueda()">🔍 BUSCAR</button>
     </div>
 
     <div class="pantalla-completa">
@@ -72,89 +79,78 @@
             </div>
 
             <div class="lector-libros">
-                <h2 id="tituloTomo" style="text-align:center; color:#8b5a2b; border-bottom: 2px solid #f4ecd8; padding-bottom:10px;">Bienvenido</h2>
-                <div id="textoLector" style="font-size:15px; line-height:1.6;">Selecciona un número de la biblioteca para revelar los secretos guardados por Barto romeo.</div>
-                <center><img id="visorImagen" src=""></center>
-               
-                <div id="cuadroDescarga">
-                    <button id="btnSolicitar" onclick="iniciarDescarga()" style="background:#8b5a2b; color:#fff; border:none; padding:12px 25px; cursor:pointer; font-weight:bold; border-radius:6px; font-size:14px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">🔐 SOLICITAR ARCHIVO ZIP</button>
-                    <div id="procesoCarga" style="display:none;">
-                        <p id="msgCarga" style="font-size:14px; font-weight:bold; color:#8b5a2b;">Iniciando conexión segura...</p>
-                        <div class="barra-contenedor"><div class="barra-progreso" id="miBarra"></div></div>
+                <h2 id="tituloTomo" style="text-align:center; color:#8b5a2b;">Biblioteca</h2>
+                <div id="cont_cuento" style="display:none;">
+                    <p style="font-weight:bold; color:#8b5a2b; margin-bottom:5px;">Nombre para copiar:</p>
+                    <div id="nombreCuento" style="background:#eee; padding:10px; border:1px solid #ccc; font-weight:bold; font-size:18px; text-align:center; user-select: all; cursor: pointer;" title="Haz clic para seleccionar">---</div>
+                    <p style="font-size:13px; color:#666; margin-top:5px;">(Copia este nombre y pégalo arriba)</p>
+                </div>
+                <div id="guia_inicial">Selecciona un número del estante para comenzar...</div>
+
+                <div id="resultadoDescarga">
+                    <p style="font-weight:bold; font-size:18px; color:#2c1e11;">✨ ¡CUENTO ENCONTRADO! ✨</p>
+                    <button id="btnBajar" onclick="iniciarDescarga()" style="background:#8b5a2b; color:#fff; border:none; padding:15px; cursor:pointer; font-weight:bold; width:100%; border-radius:8px; margin-top:10px;">DESCARGAR ZIP (100% CALIDAD)</button>
+                   
+                    <div id="cargando" class="barra-contenedor">
+                        <div class="barra-progreso" id="barra"></div>
                     </div>
-                    <p id="avisoFinal" style="display:none; color:#a00; font-weight:bold; font-size:15px; background:#fff3f3; padding:10px; border-radius:5px; border:1px solid #ffcccc;">✅ SOLICITUD ENVIADA.<br>Tu enlace personalizado estará listo MAÑANA EN LA NOCHE.</p>
+                    <p id="fin" style="display:none; color:#a00; font-weight:bold; margin-top:15px;">✅ LISTO. Regresa mañana en la noche por tu link.</p>
                 </div>
             </div>
         </div>
 
         <div class="columna-derecha">
-            <img src="dragon.jpg" alt="Dragón Guardián" class="img-dragon">
-            <p style="font-size:13px; font-weight:bold; color:#8b5a2b; text-transform:uppercase;">Guardián Místico</p>
-            </div>
+            <img src="dragon.jpg" alt="Dragón Místico" class="img-dragon">
+            <p style="font-weight:bold; color:#8b5a2b; margin-top:10px;">DRAGÓN MÍSTICO</p>
+        </div>
     </div>
 
-    <div class="leyenda-inferior">
-        <strong>AVISO DE PRIVACIDAD Y SEGURIDAD:</strong> Este portal está vinculado exclusivamente a la cuenta oficial <em>bartoromeoflex@gmail.com</em>. Todo el material descargable es procesado bajo validación manual. <br>
-        <span style="font-size:11px;">Tinta Mística © 2026 - El uso indebido de este material es responsabilidad del usuario final.</span>
-    </div>
+    <div class="pie">DESCARGAS 100% CALIDAD - TINTA MÍSTICA 2026</div>
 
     <script>
-        // LÓGICA DE MÚSICA
-        const m = document.getElementById('musicaR');
-        const bPlay = document.getElementById('btnPlay');
-        function tocarMusica() {
-            if (m.paused) { m.play(); bPlay.innerText = "⏸️"; }
-            else { m.pause(); bPlay.innerText = "▶️"; }
-        }
+        const lista = document.getElementById('listaBotones');
+        let nombreActual = "";
 
-        // GENERAR 40 BOTONES
-        const idsDrive = { "1": "PON_AQUI_ID_1", "2": "PON_AQUI_ID_2" }; // Aquí pegas tus códigos de Drive
-        const listaContenedor = document.getElementById('listaBotones');
-       
         for (let i = 1; i <= 40; i++) {
-            let boton = document.createElement('div');
-            boton.className = 'librito';
-            boton.innerText = i;
-            boton.onclick = function() {
+            let b = document.createElement('div');
+            b.className = 'librito';
+            b.innerText = i;
+            b.onclick = function() {
+                document.getElementById('guia_inicial').style.display = "none";
+                document.getElementById('cont_cuento').style.display = "block";
                 document.getElementById('tituloTomo').innerText = "TOMO " + i;
-                document.getElementById('textoLector').innerText = "Accediendo a los archivos de la biblioteca... Por favor, solicita el acceso completo si deseas el material original.";
-                document.getElementById('cuadroDescarga').style.display = "block";
-                document.getElementById('avisoFinal').style.display = "none";
-                document.getElementById('btnSolicitar').style.display = "inline-block";
-                document.getElementById('procesoCarga').style.display = "none";
-               
-                const imgVisor = document.getElementById('visorImagen');
-                if(idsDrive[i]) {
-                    imgVisor.src = "https://drive.google.com/uc?export=view&id=" + idsDrive[i];
-                    imgVisor.style.display = "block";
-                } else {
-                    imgVisor.style.display = "none";
-                }
+                nombreActual = "Cuento_Místico_" + i;
+                document.getElementById('nombreCuento').innerText = nombreActual;
+                // Escondemos la descarga anterior si elige otro número
+                document.getElementById('resultadoDescarga').style.display = "none";
             };
-            listaContenedor.appendChild(boton);
+            lista.appendChild(b);
         }
 
-        // LÓGICA DE BARRA DE CARGA
+        function validarBusqueda() {
+            let buscado = document.getElementById('inputBuscar').value.trim();
+            if (buscado === nombreActual && nombreActual !== "") {
+                document.getElementById('resultadoDescarga').style.display = "block";
+                document.getElementById('fin').style.display = "none";
+                document.getElementById('cargando').style.display = "none";
+            } else {
+                alert("El nombre no coincide o no has seleccionado un cuento. ¡Cópialo igualito!");
+            }
+        }
+
         function iniciarDescarga() {
-            document.getElementById('btnSolicitar').style.display = "none";
-            document.getElementById('procesoCarga').style.display = "block";
-            let miBarra = document.getElementById('miBarra');
-            let msj = document.getElementById('msgCarga');
-            let progreso = 0;
-           
-            let intervalo = setInterval(() => {
-                if (progreso >= 100) {
-                    clearInterval(intervalo);
-                    document.getElementById('procesoCarga').style.display = "none";
-                    document.getElementById('avisoFinal').style.display = "block";
-                } else {
-                    progreso++;
-                    miBarra.style.width = progreso + '%';
-                    if(progreso == 25) msj.innerText = "Verificando cuenta Barto romeo...";
-                    if(progreso == 50) msj.innerText = "Validando permisos con el servidor...";
-                    if(progreso == 75) msj.innerText = "Preparando paquete de datos ZIP...";
+            document.getElementById('btnBajar').style.display = "none";
+            document.getElementById('cargando').style.display = "block";
+            let b = document.getElementById('barra');
+            let w = 0;
+            let i = setInterval(() => {
+                if (w >= 100) {
+                    clearInterval(i);
+                    document.getElementById('cargando').style.display="none";
+                    document.getElementById('fin').style.display="block";
                 }
-            }, 80); // Velocidad de la barra
+                else { w++; b.style.width = w + '%'; }
+            }, 40);
         }
     </script>
 </body>
