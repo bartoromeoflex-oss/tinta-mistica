@@ -1,9 +1,5 @@
 
 
-David Reyes
-3:17 p.m. (hace 1 hora)
-para mí
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -17,13 +13,12 @@ para mí
         .pantalla-completa { display: flex; justify-content: center; align-items: flex-start; gap: 15px; max-width: 1200px; margin: 0 auto; }
         .estanteria-madera { background-color: #dfcfb3; border: 5px solid #8b5a2b; border-radius: 5px; flex: 1; max-width: 100px; padding: 10px; height: 420px; overflow-y: scroll; }
         .repisa { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 5px; }
-        .librito { background: linear-gradient(45deg, #3a539b, #22316c); border-left: 4px solid #8b5a2b; height: 35px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; color: #ffffff; cursor: pointer; border-radius: 3px 5px 5px 3px; transition: 0.3s; box-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
+        .librito { background: linear-gradient(45deg, #3a539b, #22316c); border-left: 4px solid #8b5a2b; height: 35px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; color: #ffffff; cursor: pointer; border-radius: 3px 5px 5px 3px; transition: 0.3s; box-shadow: 1px 1px 4px rgba(0,0,0,0.3); position: relative; }
         .librito:hover { transform: scale(1.05); }
+        .flor { position: absolute; right: 5px; font-size: 18px; }
         .lector-libros { background-color: #ffffff; color: #2c1e11; flex: 3; max-width: 600px; height: 420px; border: 6px solid #8b5a2b; border-radius: 5px; padding: 20px; text-align: left; overflow-y: scroll; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
         .lector-libros h2 { color: #8b5a2b; margin-top: 0; font-size: 20px; text-align: center; border-bottom: 2px solid #e6dac1; padding-bottom: 5px; }
-        .boton-descarga { background-color: #ffc107; color: #000; border: none; padding: 15px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 16px; margin-top: 15px; }
-        .espacio-publicidad { background-color: transparent; border: 2px dashed #8b5a2b; width: 160px; height: 420px; display: flex; align-items: center; justify-content: center; color: #7c7267; font-size: 14px; font-weight: bold; border-radius: 5px; }
-        .espacio-derecha { background-color: #e6dac1; border: 2px solid #8b5a2b; width: 160px; height: 420px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8b5a2b; font-size: 60px; border-radius: 5px; gap: 10px; }
+        .boton-tienda { background-color: #8b5a2b; color: #fff; border: none; padding: 12px 20px; font-weight: bold; border-radius: 5px; cursor: pointer; margin-top: 15px; font-size: 16px; }
         .aviso-legal { max-width: 800px; margin: 25px auto 10px auto; font-size: 11px; color: #7c7267; text-align: center; line-height: 1.4; }
     </style>
 </head>
@@ -31,53 +26,41 @@ para mí
 
     <h1>Tinta Mística</h1>
 
-    <!-- REPRODUCTOR DE MÚSICA FUNCIONAL -->
+    <!-- REPRODUCTOR DE MÚSICA -->
     <div class="reproductor">
-        <p style="color: #8b5a2b; font-weight: bold; margin: 0 0 5px 0; font-size: 15px;">🎶 MELODÍAS MÍSTICAS RELAJANTES</p>
+        <p style="color: #8b5a2b; font-weight: bold; margin: 0 0 5px 0; font-size: 15px;">🎶 MELODÍAS MÍSTICAS</p>
         <div style="font-size: 28px; display: flex; justify-content: center; gap: 20px; cursor: pointer;">
-            <span id="btnPrev" onclick="restartTrack()">⏮</span>
-            <span id="btnPlay" onclick="togglePlay()">⏯</span>
-            <span id="btnNext" onclick="restartTrack()">⏭</span>
-            <span id="btnVol" onclick="toggleMute()">🔊</span>
+            <span onclick="togglePlay()">⏯</span>
+            <span onclick="toggleMute()">🔊</span>
         </div>
     </div>
 
     <div class="pantalla-completa">
 
-        <!-- ANUNCIO IZQUIERDO (tal como lo tenías) -->
+        <!-- ANUNCIO IZQUIERDO -->
         <div class="espacio-publicidad" style="width: 160px; height: 420px;">
             <script>
-                atOptions = {
-                    'key' : 'a4cbc3e4e2982f09c96c5bdf29bdc7c7',
-                    'format' : 'iframe',
-                    'height' : 250,
-                    'width' : 300,
-                    'params' : {}
-                };
+                atOptions = { 'key' : 'a4cbc3e4e2982f09c96c5bdf29bdc7c7', 'format' : 'iframe', 'height' : 250, 'width' : 300, 'params' : };
             </script>
             <script src="https://www.highperformanceformat.com/bb4e1393787ff243130bdbd1c62d2002/invoke.js"></script>
         </div>
 
-        <!-- ESTANTERÍA DE ZIPs -->
+        <!-- ESTANTERÍA -->
         <div class="estanteria-madera">
-            <h3 style="color: #8b5a2b; margin-top: 0; text-align: center; font-size: 13px;">ARCHIVOS ZIP EXCLUSIVOS</h3>
+            <h3 style="color: #8b5a2b; margin-top: 0; text-align: center; font-size: 13px;">ARCHIVOS ZIP</h3>
             <div class="repisa" id="listaNumeros"></div>
         </div>
 
-        <!-- LECTOR / PREVIEW -->
+        <!-- LECTOR -->
         <div class="lector-libros" id="cajaLector">
-            <div>
-                <h2 id="tituloZip">Selecciona un ZIP de la izquierda</h2>
-                <div id="contenidoZip" style="font-size:14px; line-height:1.5;"></div>
-            </div>
+            <h2 id="tituloZip">Selecciona un archivo de la izquierda</h2>
+            <div id="contenidoZip" style="font-size:14px; line-height:1.5;"></div>
         </div>
 
-        <!-- LADO DERECHO: ICONO MÍSTICO + ANUNCIO -->
-        <div class="espacio-derecha">
-            🪄<br>
-            🔮<br>
-            <span style="font-size:18px; font-weight:bold;">Conocimiento Místico</span><br>
-            <span style="font-size:18px; font-weight:bold;">Alto Conocimiento</span>
+        <!-- LADO DERECHO -->
+        <div class="espacio-derecha" style="width: 160px; height: 420px; background-color: #e6dac1; border: 2px solid #8b5a2b; border-radius: 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #8b5a2b; font-size: 60px; gap: 10px;">
+            🪄<br>🔮<br>
+            <button class="boton-tienda" onclick="irATienda()">IR A LA TIENDA</button>
         </div>
 
     </div>
@@ -87,45 +70,46 @@ para mí
         RENUNCIA DE RESPONSABILIDAD: Esta biblioteca es con fines de entretenimiento. El administrador no promueve ni se hace responsable del contenido.
     </div>
 
-    <!-- ANUNCIO FINAL (el que tenías al final) -->
-    <script src="https://pl29039973.profitablecpmratenetwork.com/f6/d0/05/f6d005df000bda1fefba622b383c6f1d.js"></script>
-
-    <!-- AUDIO MÚSICA -->
+    <!-- MÚSICA -->
     <audio id="mysticaudio" loop></audio>
 
     <script>
-        // MÚSICA (cambia la URL por la tuya si querés)
         const audio = document.getElementById('mysticaudio');
-        audio.src = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-16.mp3';
+        const canciones = ;
+        let cancionActual = 0;
 
-        let isPlaying = false;
+        function cargarCancion() {
+            audio.src = canciones ;
+            audio.play();
+        }
+
+        audio.onended = () => {
+            cancionActual = (cancionActual + 1) % canciones.length;
+            cargarCancion();
+        };
+
         function togglePlay() {
-            if (isPlaying) audio.pause(); else audio.play();
-            isPlaying = !isPlaying;
+            if (audio.paused) audio.play();
+            else audio.pause();
         }
-        function restartTrack() {
-            audio.currentTime = 0;
-            if (!isPlaying) audio.play();
-            isPlaying = true;
-        }
+
         function toggleMute() {
             audio.muted = !audio.muted;
         }
 
-        // LISTA DE 40 ZIPs
+        // Lista de ZIPs
         const lista = document.getElementById('listaNumeros');
         for (let i = 1; i <= 40; i++) {
             let div = document.createElement('div');
             div.className = 'librito';
-            div.innerText = i;
+            div.innerHTML = `\( {i} <span class="flor" onclick="descargarZip( \){i}); event.stopImmediatePropagation();">🌸</span>`;
             div.onclick = () => cargarZip(i);
             lista.appendChild(div);
         }
 
-        // ENLACES GOOGLE DRIVE (REEMPLAZA LOS IDs)
         const zipLinks = {};
         for (let i = 1; i <= 40; i++) {
-            zipLinks[i] = `https://drive.google.com/uc?export=download&id=TU_FILE_ID_${i}`;
+            zipLinks = `https://drive.google.com/uc?export=download&id=TU_FILE_ID_${i}`;
         }
 
         function cargarZip(num) {
@@ -135,26 +119,26 @@ para mí
                     ✅ 100% SÍ • 100% DE CALIDAD • 100% ZIP
                 </p>
                 <p>Contenido exclusivo de alto conocimiento místico.</p>
-                <p><strong>Vista previa:</strong></p>
-                <img src="https://via.placeholder.com/500x280/8b5a2b/ffffff?text=PREVIEW+ZIP+${num}"
-                     style="max-width:100%; border:3px solid #8b5a2b; border-radius:8px; display:block; margin:10px auto;">
-                <p style="text-align:center; font-size:13px; color:#7c7267;">
-                    (Las imágenes se pueden copiar y guardar con clic derecho)
-                </p>
-                <button class="boton-descarga" onclick="descargarZip(${num})">
-                    ⬇️ DESCARGAR ARCHIVO ZIP COMPLETO
-                </button>
             `;
         }
 
         function descargarZip(num) {
-            const link = zipLinks[num];
+            const link = zipLinks ;
             if (link.includes('TU_FILE_ID')) {
                 alert('⚠️ Cambia TU_FILE_ID_' + num + ' por tu ID real de Google Drive.');
             } else {
                 window.open(link, '_blank');
             }
         }
+
+        function irATienda() {
+            window.open('https://tu-pagina-de-tienda.com', '_blank'); // Cambia este link
+        }
+
+        // Inicia música
+        window.onload = () => {
+            cargarCancion();
+        };
     </script>
 </body>
-</html> 
+</html>
