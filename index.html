@@ -1,143 +1,94 @@
 
 
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinta Mística - Biblioteca Segura</title>
+    <title>Tinta Mística</title>
     <style>
-        body { background-color: #f4ecd8; font-family: 'Georgia', serif; color: #2c1e11; text-align: center; padding: 10px; margin: 0; }
-        h1 { color: #8b5a2b; font-size: 30px; margin: 10px 0; font-weight: bold; }
-        .reproductor { background-color: #e6dac1; border: 2px solid #8b5a2b; border-radius: 8px; max-width: 500px; margin: 0 auto 15px auto; padding: 10px; }
-        .pantalla-completa { display: flex; justify-content: center; gap: 15px; max-width: 1200px; margin: 0 auto; }
-        .contenedor-principal { display: flex; flex: 2; gap: 15px; justify-content: center; align-items: flex-start; max-width: 800px; }
-        .estanteria-madera { background-color: #dfcfb3; border: 5px solid #8b5a2b; border-radius: 5px; flex: 1; max-width: 100px; padding: 10px; height: 420px; overflow-y: scroll; }
-        .repisa { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 5px; }
-        .librito { background: linear-gradient(45deg, #3a539b, #22316c); border-left: 4px solid #8b5a2b; height: 35px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; color: #ffffff; cursor: pointer; border-radius: 3px 5px 5px 3px; transition: 0.3s; box-shadow: 1px 1px 4px rgba(0,0,0,0.3); }
+        body { background-color: #f4ecd8; font-family: 'Georgia', serif; color: #2c1e11; text-align: center; margin: 0; padding: 10px; }
+        h1 { color: #8b5a2b; font-size: 32px; margin: 10px 0; }
+        .pantalla { display: flex; justify-content: center; gap: 15px; max-width: 1200px; margin: 0 auto; }
+        .estanteria { background: #dfcfb3; border: 5px solid #8b5a2b; border-radius: 8px; width: 90px; padding: 10px; height: 460px; overflow-y: auto; }
+        .librito { background: linear-gradient(45deg, #3a539b, #22316c); color: white; padding: 12px; margin: 6px 0; border-radius: 6px; cursor: pointer; font-weight: bold; }
         .librito:hover { transform: scale(1.05); }
-        .lector-libros { background-color: #ffffff; color: #2c1e11; flex: 3; max-width: 600px; height: 420px; border: 6px solid #8b5a2b; border-radius: 5px; padding: 20px; text-align: left; overflow-y: scroll; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
-        .boton-opciones, .boton-permiso, .boton-conocimiento { background-color: #e6dac1; color: #2c1e11; border: 1px solid #8b5a2b; padding: 10px; font-weight: bold; border-radius: 5px; cursor: pointer; width: 100%; font-size: 14px; margin-top: 10px; }
-        .boton-opciones:hover, .boton-permiso:hover, .boton-conocimiento:hover { background-color: #dfcfb3; }
-        #cuadroEspera, #cuadroRegresaManana { display: none; background-color: #e6dac1; color: #2c1e11; padding: 15px; border-radius: 5px; text-align: center; margin-top: 15px; border: 1px solid #8b5a2b; }
-        .barra-progreso { width: 100%; background-color: #ffffff; border-radius: 10px; height: 15px; margin-top: 10px; overflow: hidden; border: 1px solid #8b5a2b; }
-        .relleno-barra { height: 100%; width: 0%; background-color: #8b5a2b; transition: width 0.1s linear; }
-        .lado-derecho { width: 180px; display: flex; flex-direction: column; gap: 15px; }
+        .lector { background: white; border: 6px solid #8b5a2b; border-radius: 8px; width: 620px; height: 460px; padding: 15px; text-align: left; overflow-y: auto; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .descarga-box { margin-top: 15px; background: #e6dac1; border: 3px solid #8b5a2b; border-radius: 8px; padding: 12px; display: flex; gap: 10px; }
+        .descarga-box input { flex: 1; padding: 12px; font-size: 16px; border: 2px solid #8b5a2b; border-radius: 5px; }
+        .btn-descargar { background: #8b5a2b; color: white; padding: 12px 20px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; }
+        .btn-descargar:hover { background: #a36e3a; }
+        .anuncio { width: 160px; height: 460px; border: 3px dashed #8b5a2b; display: flex; align-items: center; justify-content: center; color: #8b5a2b; font-weight: bold; }
     </style>
 </head>
 <body>
 
     <h1>Tinta Mística</h1>
-   
-    <div class="reproductor">
-        <p style="color: #8b5a2b; font-weight: bold; margin: 0 0 5px 0;">🎶 MELODÍAS RELAJANTES</p>
-        <button onclick="toggleMusica()" style="font-size:18px; background:none; border:none; cursor:pointer;">⏯</button>
-        <audio id="musicaFondo" loop>
-            <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-        </audio>
-    </div>
 
-    <div class="pantalla-completa">
-        <div class="contenedor-principal">
-            <div class="estanteria-madera">
-                <h3 style="color: #8b5a2b; margin-top: 0;">TOMOS</h3>
-                <div class="repisa" id="listaNumeros"></div>
-            </div>
+    <div class="pantalla">
+        <!-- Estantería -->
+        <div class="estanteria" id="estanteria"></div>
 
-            <div class="lector-libros" id="cajaLector">
-                <h2 id="tituloArchivo">Bienvenido</h2>
-                <div id="contenidoArchivo" style="font-size:14px;">
-                    Selecciona un número de la estantería izquierda.
-                </div>
+        <!-- Lector -->
+        <div class="lector" id="lector">
+            <h2 id="titulo">Selecciona un número</h2>
+            <div id="contenido">Haz clic en un número de la izquierda para ver las imágenes.</div>
 
-                <div id="opcionesTomo" style="display:none;">
-                    <button class="boton-opciones" onclick="mostrarBotonPermiso()">⚙️ SOLICITAR ARCHIVO ZIP COMPLETO</button>
-                </div>
-
-                <button class="boton-permiso" id="btnDescarga" onclick="iniciarSimulacion()" style="display:none;">🔐 SOLICITAR PERMISO AL ADMINISTRADOR</button>
-
-                <div id="cuadroEspera">
-                    <span id="textoCarga">Enviando solicitud para permiso de descargar el archivo ZIP...</span>
-                    <div class="barra-progreso"><div class="relleno-barra" id="progreso"></div></div>
-                </div>
-
-                <div id="cuadroRegresaManana">
-                    📝 SOLICITUD RECIBIDA.<br><br>
-                    Tu archivo ZIP de descarga estará listo <strong>mañana en la noche</strong>. Regresa a esta página.
-                </div>
+            <!-- Área de descarga -->
+            <div class="descarga-box">
+                <input type="text" id="nombreImagen" placeholder="Pega aquí el nombre de la imagen">
+                <button class="btn-descargar" onclick="descargarImagen()">DESCARGAR</button>
             </div>
         </div>
 
-        <div class="lado-derecho">
-            <div style="font-size:80px;">🔮</div>
-            <button class="boton-conocimiento" onclick="abrirConocimiento()">CONOCIMIENTO</button>
-            <div style="flex:1; border: 2px dashed #8b5a2b; display:flex; align-items:center; justify-content:center; color:#7c7267; font-size:13px;">
-                Anuncio
+        <!-- Lado derecho -->
+        <div>
+            <div style="font-size:90px; margin-bottom:10px;">🔮</div>
+            <button onclick="conocimiento()" style="width:160px; padding:12px; background:#e6dac1; border:2px solid #8b5a2b; border-radius:8px; font-weight:bold; cursor:pointer;">
+                CONOCIMIENTO
+            </button>
+            
+            <div class="anuncio" style="margin-top:15px;">
+                ANUNCIO
             </div>
         </div>
     </div>
 
-    <div style="max-width:800px; margin:25px auto; font-size:11px; color:#7c7267;">
-        <hr style="border-color:#dfcfb3;">
-        RENUNCIA DE RESPONSABILIDAD: Esta biblioteca es solo para entretenimiento y estudio. El administrador no cree en el contenido ni se hace responsable.
-    </div>
+    <p style="margin-top:20px; color:#8b5a2b; font-weight:bold;">100% Seguro</p>
 
     <script>
-        const lista = document.getElementById('listaNumeros');
+        const estanteria = document.getElementById('estanteria');
         for (let i = 1; i <= 45; i++) {
-            let div = document.createElement('div');
-            div.className = 'librito';
-            div.innerText = i;
-            div.onclick = () => cargarArchivo(`ARCHIVO ZIP NÚMERO ${i}`, `Este es un fragmento de muestra para el archivo ZIP número ${i}.`);
-            lista.appendChild(div);
+            let btn = document.createElement('div');
+            btn.className = 'librito';
+            btn.textContent = i;
+            btn.onclick = () => mostrarNumero(i);
+            estanteria.appendChild(btn);
         }
 
-        function cargarArchivo(titulo, contenido) {
-            document.getElementById('tituloArchivo').innerHTML = titulo;
-            document.getElementById('contenidoArchivo').innerHTML = contenido;
-            document.getElementById('opcionesTomo').style.display = 'block';
-            document.getElementById('btnDescarga').style.display = 'none';
-            document.getElementById('cuadroEspera').style.display = 'none';
-            document.getElementById('cuadroRegresaManana').style.display = 'none';
+        function mostrarNumero(num) {
+            document.getElementById('titulo').innerHTML = `ARCHIVO ZIP NÚMERO ${num}`;
+            document.getElementById('contenido').innerHTML = `
+                <p>Imágenes del archivo número ${num}:</p>
+                <p style="color:#666;">(Aquí se cargarán las imágenes del número ${num})</p>
+            `;
         }
 
-        function mostrarBotonPermiso() {
-            document.getElementById('opcionesTomo').style.display = 'none';
-            document.getElementById('btnDescarga').style.display = 'block';
+        function descargarImagen() {
+            let nombre = document.getElementById('nombreImagen').value.trim();
+            if (nombre === "") {
+                alert("Por favor pega el nombre de la imagen");
+                return;
+            }
+            alert(`Descargando: ${nombre}`);
+            // Aquí iría el link real de descarga después
         }
 
-        function iniciarSimulacion() {
-            document.getElementById('btnDescarga').style.display = 'none';
-            document.getElementById('cuadroEspera').style.display = 'block';
-            let progreso = document.getElementById('progreso');
-            let texto = document.getElementById('textoCarga');
-            let ancho = 0;
-            let intervalo = setInterval(() => {
-                if (ancho >= 100) {
-                    clearInterval(intervalo);
-                    document.getElementById('cuadroEspera').style.display = 'none';
-                    document.getElementById('cuadroRegresaManana').style.display = 'block';
-                } else {
-                    ancho++;
-                    progreso.style.width = ancho + '%';
-                    if (ancho === 25) texto.innerHTML = "Enviando datos al administrador...";
-                    if (ancho === 60) texto.innerHTML = "Registrando tu dirección IP...";
-                    if (ancho === 85) texto.innerHTML = "Finalizando solicitud...";
-                }
-            }, 50);
-        }
-
-        function toggleMusica() {
-            let audio = document.getElementById('musicaFondo');
-            if (audio.paused) audio.play();
-            else audio.pause();
-        }
-
-        function abrirConocimiento() {
-            alert("Acceso al conocimiento activado 🔮");
+        function conocimiento() {
+            alert("🔮 Acceso al conocimiento activado");
         }
     </script>
 </body>
-</html> 
+</html>
+
