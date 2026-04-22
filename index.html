@@ -1,17 +1,377 @@
 
 <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link type="text/css" rel="stylesheet" href="style.css"/>
+  </head>
+  <body>
+    <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tinta Mística</title>
+    <title>Tinta Mística - Biblioteca Segura</title>
     <style>
-        body { background-color: #f4ecd8; font-family: Georgia, serif; color: #2c1e11; text-align: center; margin: 0; padding: 20px; }
-        h1 { color: #8b5a2b; font-size: 32px; }
+        body {
+            background-color: #f4ecd8;
+            font-family: 'Georgia', serif;
+            color: #2c1e11;
+            text-align: center;
+            padding: 10px;
+            margin: 0;
+        }
+
+        h1 {
+            color: #8b5a2b;
+            font-size: 30px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        .reproductor {
+            background-color: #e6dac1;
+            border: 2px solid #8b5a2b;
+            border-radius: 8px;
+            max-width: 500px;
+            margin: 0 auto 15px auto;
+            padding: 10px;
+        }
+
+        .pantalla-completa {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 15px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .espacio-publicidad {
+            background-color: transparent; 
+            border: 2px dashed #8b5a2b;
+            width: 100px;
+            height: 420px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #7c7267;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .contenedor-principal {
+            display: flex;
+            flex: 2;
+            gap: 15px;
+            justify-content: center;
+            align-items: flex-start;
+            max-width: 800px;
+        }
+
+        .estanteria-madera {
+            background-color: #dfcfb3;
+            border: 5px solid #8b5a2b;
+            border-radius: 5px;
+            flex: 1;
+            max-width: 100px;
+            padding: 10px;
+            height: 420px;
+            overflow-y: scroll;
+        }
+
+        .repisa {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            padding: 5px;
+        }
+
+        .librito {
+            background: linear-gradient(45deg, #3a539b, #22316c);
+            border-left: 4px solid #8b5a2b;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: #ffffff;
+            cursor: pointer;
+            border-radius: 3px 5px 5px 3px;
+            transition: 0.3s;
+            box-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .librito:hover { transform: scale(1.05); }
+
+        .lector-libros {
+            background-color: #ffffff;
+            color: #2c1e11;
+            flex: 3;
+            max-width: 600px;
+            height: 420px;
+            border: 6px solid #8b5a2b;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: left;
+            overflow-y: scroll;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .lector-libros h2 {
+            color: #8b5a2b;
+            margin-top: 0;
+            font-size: 20px;
+            text-align: center;
+            border-bottom: 2px solid #e6dac1;
+            padding-bottom: 5px;
+        }
+
+        .boton-opciones {
+            background-color: #e6dac1;
+            color: #2c1e11;
+            border: 1px solid #8b5a2b;
+            padding: 8px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 13px;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .boton-opciones:hover { background-color: #dfcfb3; }
+
+        #cuadroEspera {
+            display: none;
+            background-color: #e6dac1;
+            color: #2c1e11;
+            padding: 15px;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 15px;
+            border: 1px solid #8b5a2b;
+        }
+
+        .barra-progreso {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 10px;
+            height: 15px;
+            margin-top: 10px;
+            overflow: hidden;
+            border: 1px solid #8b5a2b;
+        }
+
+        .relleno-barra {
+            height: 100%;
+            width: 0%;
+            background-color: #8b5a2b;
+            transition: width 0.1s linear;
+        }
+
+        .boton-permiso {
+            background-color: #ffc107;
+            color: #000;
+            border: none;
+            padding: 12px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        #cuadroRegresaManana {
+            display: none;
+            background-color: #fff3cd;
+            color: #856404;
+            padding: 15px;
+            border: 2px solid #ffeeba;
+            border-radius: 5px;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+       
+        .aviso-legal {
+            max-width: 800px;
+            margin: 25px auto 10px auto;
+            font-size: 11px;
+            color: #7c7267;
+            text-align: center;
+            line-height: 1.4;
+            padding: 0 10px;
+        }
     </style>
 </head>
 <body>
+
     <h1>Tinta Mística</h1>
-    <p>La página está funcionando ✅</p>
-</body>
+   
+    <div class="reproductor">
+        <p style="color: #8b5a2b; font-weight: bold; margin: 0 0 5px 0; font-size: 15px;">🎶 MELODÍAS RELAJANTES</p>
+        <span style="font-size: 18px;">⏮  ⏯  ⏭  🔊</span>
+    </div>
+
+<div class="pantalla-completa" style="display: flex; gap: 15px; align-items: flex-start;">
+
+    <div style="width: 150px; height: 250px; flex-shrink: 0;">
+        <script>
+            atOptions = {
+                'key' : 'a4cbc3e4e2982f09c96c5bdf29bdc7c7',
+                'format' : 'iframe',
+                'height' : 250,
+                'width' : 150,
+                'params' : {}
+            };
+        </script>
+        <<script>
+  atOptions = {
+    'key' : 'a4cbc3e4e2982f09c96c5bdf29bdc7c7',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<<script>
+  atOptions = {
+    'key' : 'a4cbc3e4e2982f09c96c5bdf29bdc7c7',
+    'format' : 'iframe',
+    'height' : 250,
+    'width' : 300,
+    'params' : {}
+  };
+</script>
+<script>
+  atOptions = {
+    'key' : 'bb4e1393787ff243130bdbd1c62d2002',
+    'format' : 'iframe',
+    'height' : 600,
+    'width' : 160,
+    'params' : {}
+  };
+</script>
+<script src="https://www.highperformanceformat.com/bb4e1393787ff243130bdbd1c62d2002/invoke.js"></script>
+
+    </div>
+
+ 
+
+        <div class="contenedor-principal">
+           
+            <div class="estanteria-madera">
+                <h3 style="color: #8b5a2b; margin-top: 0; text-align: center; font-size: 13px;">TOMOS</h3>
+                <div class="repisa" id="listaNumeros">
+                </div>
+            </div>
+
+            <div class="lector-libros" id="cajaLector">
+                <div>
+                    <h2 id="tituloLibro">Bienvenido</h2>
+                    <div id="contenidoLibro" style="font-size:14px;">
+                        Selecciona un número de la estantería izquierda para revelar el fragmento del libro.
+                    </div>
+                </div>
+               
+                <div id="opcionesTomo" style="display:none;">
+                    <button class="boton-opciones" onclick="mostrarBotonPermiso()">⚙️ OPCIONES: Solicitar libro completo en PDF</button>
+                </div>
+
+                <button class="boton-permiso" id="btnDescarga" onclick="iniciarSimulacion()">🔐 SOLICITAR PERMISO AL ADMINISTRADOR</button>
+
+                <div id="cuadroEspera">
+                    <span id="textoCarga" style="font-size: 14px;">Enviando solicitud para permiso de descargar el archivo...</span>
+                    <div class="barra-progreso">
+                        <div class="relleno-barra" id="progreso"></div>
+                    </div>
+                </div>
+
+                <div id="cuadroRegresaManana">
+                    📝 SOLICITUD RECIBIDA.<br><br>
+                    Para proteger el servidor, el administrador debe validar tu acceso manualmente. Tu enlace de descarga estará listo <strong>mañana en la noche</strong>. Por favor, regresa a esta misma página a esa hora.
+                </div>
+            </div>
+
+        </div>
+
+        <div class="espacio-publicidad">
+            
+        </div>
+
+    </div>
+
+    <div class="aviso-legal">
+        <hr style="border-color: #dfcfb3; margin-bottom: 10px;">
+        RENUNCIA DE RESPONSABILIDAD: Esta biblioteca digital se presenta estrictamente con fines de entretenimiento y estudio. El administrador NO cree en el contenido de estos libros, NO los promueve y NO se hace responsable de las interpretaciones o acciones que puedan derivar de su lectura voluntaria. El usuario accede a este contenido bajo su propia cuenta y riesgo. El administrador no asume responsabilidad alguna.
+    </div>
+
+    <script>
+        const lista = document.getElementById('listaNumeros');
+        for (let i = 1; i <= 45; i++) {
+            let div = document.createElement('div');
+            div.className = 'librito';
+            div.innerText = i;
+            div.onclick = function() {
+                cargarLibro('LIBRO NÚMERO ' + i, 'Este es un fragmento de muestra para el libro número ' + i + '. Usa la barra de la derecha para bajar y leer todo el texto sin que los anuncios te estorben.');
+            };
+            lista.appendChild(div);
+        }
+
+        function cargarLibro(titulo, contenido) {
+            document.getElementById('tituloLibro').innerHTML = titulo;
+            document.getElementById('contenidoLibro').innerHTML = contenido;
+           
+            document.getElementById('opcionesTomo').style.display = 'block';
+            document.getElementById('btnDescarga').style.display = 'none';
+            document.getElementById('cuadroEspera').style.display = 'none';
+            document.getElementById('cuadroRegresaManana').style.display = 'none';
+            document.getElementById('progreso').style.width = '0%';
+        }
+
+        function mostrarBotonPermiso() {
+            document.getElementById('opcionesTomo').style.display = 'none';
+            document.getElementById('btnDescarga').style.display = 'block';
+        }
+
+        function iniciarSimulacion() {
+            document.getElementById('btnDescarga').style.display = 'none';
+            document.getElementById('cuadroEspera').style.display = 'block';
+           
+            let progreso = document.getElementById('progreso');
+            let texto = document.getElementById('textoCarga');
+            let ancho = 0;
+           
+            let intervalo = setInterval(function() {
+                if (ancho >= 100) {
+                    clearInterval(intervalo);
+                    document.getElementById('cuadroEspera').style.display = 'none';
+                    document.getElementById('cuadroRegresaManana').style.display = 'block';
+                } else {
+                    ancho++;
+                    progreso.style.width = ancho + '%';
+                    if(ancho == 25) texto.innerHTML = "Enviando datos al administrador...";
+                    if(ancho == 60) texto.innerHTML = "Registrando tu dirección IP en la lista de espera...";
+                    if(ancho == 85) texto.innerHTML = "Finalizando solicitud...";
+                }
+            }, 50);
+        }
+    </script>
+
+
+ 
+<script src="https://pl29039973.profitablecpmratenetwork.com/f6/d0/05/f6d005df000bda1fefba622b383c6f1d.js"></script>
+
+ 
+    <script type="module" src="script.js"></script>
+  </body>
 </html>
